@@ -11,11 +11,14 @@ void vimish_quit(int n_args, char **args);
 void vimish_write_quit(int n_args, char **args);
 /* END COMMANDS */
 
-#define MODE_NORMAL  (0x0)
-#define MODE_INSERT  (0x1)
-#define MODE_DELETE  (0x2)
-#define MODE_YANK    (0x3)
-#define N_MODES      (4)
+enum MODE {
+    MODE_NORMAL,
+    MODE_INSERT,
+    MODE_DELETE,
+    MODE_YANK,
+    MODE_REPLACE,
+    N_MODES
+};
 
 static int restore_cursor_line;
 
@@ -23,6 +26,7 @@ static char *mode_strs[] = {
     "NORMAL",
     "INSERT",
     "DELETE",
+    "REPLACE",
     "YANK"
 };
 
@@ -30,6 +34,7 @@ static char *mode_strs_lowercase[] = {
     "normal",
     "insert",
     "delete",
+    "replace",
     "yank"
 };
 
