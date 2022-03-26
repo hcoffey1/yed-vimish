@@ -4,6 +4,7 @@
 void vimish_take_key(int n_args, char **args);
 void vimish_bind(int n_args, char **args);
 void vimish_unbind(int n_args, char **args);
+void vimish_enter_insert(int n_args, char **args);
 void vimish_exit_insert(int n_args, char **args);
 void vimish_write(int n_args, char **args);
 void vimish_quit(int n_args, char **args);
@@ -93,6 +94,7 @@ int yed_plugin_boot(yed_plugin *self) {
     yed_plugin_set_command(Self, "vimish-take-key",    vimish_take_key);
     yed_plugin_set_command(Self, "vimish-bind",        vimish_bind);
     yed_plugin_set_command(Self, "vimish-unbind",      vimish_unbind);
+    yed_plugin_set_command(Self, "vimish-enter-insert", vimish_enter_insert);
     yed_plugin_set_command(Self, "vimish-exit-insert", vimish_exit_insert);
     yed_plugin_set_command(Self, "w",                  vimish_write);
     yed_plugin_set_command(Self, "W",                  vimish_write);
@@ -485,6 +487,11 @@ static void vimish_start_repeat(int key) {
 
     array_clear(repeat_keys);
     array_push(repeat_keys, key);
+}
+
+void vimish_enter_insert(int n_args, char **args) {
+    YEXE("select-off");
+    vimish_change_mode(MODE_INSERT, 0, 0);
 }
 
 void vimish_exit_insert(int n_args, char **args) {
